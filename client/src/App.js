@@ -1,24 +1,29 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, button } from "react";
 import './App.css';
 
 function App() {
-  const [data , setData] = useState(null);
+  const [count , setCount] = useState(0);
 
+  /*
   useEffect(() => {
     fetch('/api')
     .then(res => res.json())
-    .then(data => setData(data.message));
+    .then(data => setCount(data.count));
   }, []);
 
+  */
   return (
     <div className="App">
-      <header className="App-header">
-        <p>
-          {data ? data : "Loading..."}
-        </p>
-      </header>
+      <body className="App-header">
+        <div>
+          <button onClick={clickButton} class="button-29">{count}</button>
+        </div>
+      </body>
     </div>
   );
+  function clickButton() {
+    setCount(count + 1);
+  }
 }
 
 export default App;
