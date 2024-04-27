@@ -8,8 +8,8 @@
   display: flex; /* Example setup for internal flex layout */
   flex-direction: column;
   flex-wrap: wrap; /* Allows child elements to wrap */
-  justify-content: flex-start; /* Align items to the left */
-  align-items: flex-start; /* Align items to the top */
+  justify-content: flex-start; /* Align items to the center-horizontal */
+  align-items: center; /* Align items to the top */
   gap: 10px; /* Adjust space between rectangles */
   padding: 10px; /* Padding inside the rectangle area */
 }
