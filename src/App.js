@@ -36,7 +36,7 @@ function App() {
       var newButtons = [];
       for (const key in data) {
         newButtons.push(
-          <Grid item xs={2}>
+          <Grid item xs={3}>
               <IconButton onClick={() => clickButton(key)} class="button-29"><img src={"./icons/" + data[key].emoji}/></IconButton>
           </Grid>
         );
