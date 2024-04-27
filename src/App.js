@@ -57,7 +57,7 @@ function App() {
 
   const counters = actions.map((action) => {
     return (
-      <ActionChip text={action.emoji + "  x" + action.count} />
+      <ActionChip icon={"./icons/" + action.emoji} text={"  x" + action.count} />
     );
   });
 
