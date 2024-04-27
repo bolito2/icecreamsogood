@@ -60,7 +60,9 @@ function App() {
           const timestamps = Object.values(data[key].clicks).map(click => click.timestamp);
           count = timestamps.filter((timestamp) => Date.now() - timestamp < fadingTime).length;
         }
-        newActions.push({id: key, emoji: data[key].emoji, count: count});
+        if(count > 0){
+          newActions.push({id: key, emoji: data[key].emoji, count: count});
+        }
       }
       setActions(newActions.sort((a, b) => b.count - a.count));
     });
