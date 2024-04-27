@@ -86,7 +86,7 @@ function App() {
           {counters}
         </div>
         
-        <div>
+        <div className="button-grid">
           <Grid container spacing={1}>
             {buttons}
           </Grid>
