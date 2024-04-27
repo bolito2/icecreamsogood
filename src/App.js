@@ -29,22 +29,21 @@ function App() {
     });
   }, []);
 
-  const buttons = [];
+  var [buttons, setButtons] = useState([]);
+  // Get the buttons and display them (runs once)
   useEffect(() => {
     const actionsRef = ref(database, 'actions');
     get(actionsRef).then((snapshot) => {
       const data = snapshot.val();
-      console.log(data)
       for (const key in data) {
-        console.log(key)
-        console.log(data[key])
-        buttons.push(
+        var newButtons = [];
+        newButtons.push(
           <Grid item xs={8}>
               <Button onClick={clickButton} class="button-29">{data[key].emoji}</Button>
           </Grid>
         );
       }
-      console.log(buttons)
+      setButtons(newButtons);
     });
   }, []);
 
