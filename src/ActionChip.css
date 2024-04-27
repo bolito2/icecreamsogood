@@ -1,0 +1,17 @@
+.action-chip {
+    display: inline-block; /* Makes the div size according to its content */
+    padding: 10px 20px; /* Adds space around the text */
+    border: 2px solid #5468ff; /* Creates a blue border */
+    border-radius: 15px; /* Rounds the corners of the border */
+    color: #5468ff; /* Sets the text color to blue */
+    font-size: 16px; /* Adjust the font size as needed */
+    font-family: Arial, sans-serif; /* Sets a modern-looking font */
+    text-align: center; /* Centers the text */
+    background-color: transparent; /* Ensures the background is transparent */
+  }
+
+  .app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Ensure the app container fills the viewport height */
+}

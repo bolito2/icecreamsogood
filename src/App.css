@@ -1,5 +1,29 @@
 .App {
-  text-align: center;
+  
+}
+
+.rectangle-area {
+  flex: 1; /* Take up all available space */
+  /* Ensure content within this area fits or adjusts. You might need custom styling here. */
+  display: flex; /* Example setup for internal flex layout */
+  flex-direction: column;
+  flex-wrap: wrap; /* Allows child elements to wrap */
+  justify-content: flex-start; /* Align items to the left */
+  align-items: flex-start; /* Align items to the top */
+  gap: 10px; /* Adjust space between rectangles */
+  padding: 10px; /* Padding inside the rectangle area */
+}
+
+.button-grid {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 50px; /* Fixed height for the button grid */
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  background-color: #282c34;
 }
 
 .App-logo {
@@ -18,10 +42,6 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
 .App-link {
@@ -84,3 +104,4 @@
   box-shadow: #3c4fe0 0 3px 7px inset;
   transform: translateY(2px);
 }
+

@@ -2,6 +2,10 @@
 import React, { useEffect, useState } from "react";
 import './App.css';
 import { Button, Grid } from "@mui/material";
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import ActionChip from "./ActionChip";
+
 
 // Firebase imports
 import { initializeApp } from "firebase/app";
@@ -28,7 +32,7 @@ function App() {
       var newButtons = [];
       for (const key in data) {
         newButtons.push(
-          <Grid item xs={6}>
+          <Grid item xs={2}>
               <Button onClick={() => clickButton(key)} class="button-29">{data[key].emoji}</Button>
           </Grid>
         );
@@ -53,21 +57,19 @@ function App() {
 
   const counters = actions.map((action) => {
     return (
-      <p>
-        {action.emoji} : {action.count}
-      </p>
+      <ActionChip text={action.emoji + "  x" + action.count} />
     );
   });
 
   return (
     <div className="App">
       <body className="App-header">
-        <div>
+        <div className="rectangle-area">
           {counters}
         </div>
 
         <div>
-          <Grid container spacing={2}>
+          <Grid container spacing={1}>
             {buttons}
           </Grid>
         </div>
