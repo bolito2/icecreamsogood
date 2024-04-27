@@ -19,27 +19,17 @@ const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
 function App() {
-  const [count , setCount] = useState(0);
-  
-  useEffect(() => {
-    const iceCreamCountRef = ref(database, 'actions/ice_cream/count');
-    onValue(iceCreamCountRef, (snapshot) => {
-      const data = snapshot.val();
-      setCount(data);
-    });
-  }, []);
-
   var [buttons, setButtons] = useState([]);
   // Get the buttons and display them (runs once)
   useEffect(() => {
     const actionsRef = ref(database, 'actions');
     get(actionsRef).then((snapshot) => {
       const data = snapshot.val();
+      var newButtons = [];
       for (const key in data) {
-        var newButtons = [];
         newButtons.push(
-          <Grid item xs={8}>
-              <Button onClick={clickButton} class="button-29">{data[key].emoji}</Button>
+          <Grid item xs={6}>
+              <Button onClick={() => clickButton(key)} class="button-29">{data[key].emoji}</Button>
           </Grid>
         );
       }
@@ -47,9 +37,35 @@ function App() {
     });
   }, []);
 
+  const [actions , setActions] = useState([]);
+  
+  useEffect(() => {
+    const actionsRef = ref(database, 'actions');
+    onValue(actionsRef, (snapshot) => {
+      const data = snapshot.val();
+      var newActions = [];
+      for (const key in data){
+        newActions.push({id: key, emoji: data[key].emoji, count: data[key].count});
+      }
+      setActions(newActions.sort((a, b) => b.count - a.count));
+    });
+  }, []);
+
+  const counters = actions.map((action) => {
+    return (
+      <p>
+        {action.emoji} : {action.count}
+      </p>
+    );
+  });
+
   return (
     <div className="App">
       <body className="App-header">
+        <div>
+          {counters}
+        </div>
+
         <div>
           <Grid container spacing={2}>
             {buttons}
@@ -58,8 +74,13 @@ function App() {
       </body>
     </div>
   );
-  function clickButton() {
-    set(ref(database, 'actions/ice_cream/count'), count + 1);
+  function clickButton(id) {
+    console.log(id)
+    const actionCountRef = ref(database, 'actions/' + id + '/count');
+    get(actionCountRef).then((snapshot) => {
+      const data = snapshot.val();
+      set(actionCountRef, data + 1);
+    });
   }
 }
 
