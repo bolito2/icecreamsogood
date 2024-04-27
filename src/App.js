@@ -5,7 +5,7 @@ import { Button, Grid } from "@mui/material";
 
 // Firebase imports
 import { initializeApp } from "firebase/app";
-import { getDatabase, onValue, ref } from "firebase/database";
+import { getDatabase, onValue, ref, set } from "firebase/database";
 
 const firebaseConfig = {
   databaseURL: "https://ice-cream-so-good-default-rtdb.europe-west1.firebasedatabase.app/",
@@ -46,7 +46,7 @@ function App() {
     </div>
   );
   function clickButton() {
-    setCount(count + 1);
+    set(ref(database, 'ice_cream/count'), count + 1);
   }
 }
 
