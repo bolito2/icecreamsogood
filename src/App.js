@@ -16,6 +16,9 @@ const firebaseConfig = {
   databaseURL: "https://ice-cream-so-good-default-rtdb.europe-west1.firebasedatabase.app/",
 };
 
+// Time in milliseconds that a click is considered "recent"
+const fadingTime = 2500;
+
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
@@ -42,6 +45,7 @@ function App() {
     });
   }, []);
 
+  // Get counts and display them (runs every time the database changes)
   const [actions , setActions] = useState([]);
   
   useEffect(() => {
@@ -50,7 +54,13 @@ function App() {
       const data = snapshot.val();
       var newActions = [];
       for (const key in data){
-        newActions.push({id: key, emoji: data[key].emoji, count: data[key].count});
+        let count = 0;
+        if (data[key].clicks) {
+          // Only count clicks that are less than 2.5s old
+          const timestamps = Object.values(data[key].clicks).map(click => click.timestamp);
+          count = timestamps.filter((timestamp) => Date.now() - timestamp < fadingTime).length;
+        }
+        newActions.push({id: key, emoji: data[key].emoji, count: count});
       }
       setActions(newActions.sort((a, b) => b.count - a.count));
     });
@@ -85,7 +95,7 @@ function App() {
     // pause for 2.5s
     return setTimeout(() => {
       remove(newClickRef);
-    }, 2500);
+    }, fadingTime);
   }
 }
 
