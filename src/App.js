@@ -27,6 +27,11 @@ const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
 function App() {
+  // Scroll down to hide URL bar on mobile
+  useEffect(() => {
+    window.scrollTo(0, 1);
+  }, []);
+
   var [buttons, setButtons] = useState([]);
   // Get the buttons and display them (runs once)
   useEffect(() => {
