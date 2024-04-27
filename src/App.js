@@ -1,7 +1,7 @@
 // React imports
 import React, { useEffect, useState } from "react";
 import './App.css';
-import { Button, Grid } from "@mui/material";
+import { Button, Grid, IconButton, SvgIcon } from "@mui/material";
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import ActionChip from "./ActionChip";
@@ -33,7 +33,7 @@ function App() {
       for (const key in data) {
         newButtons.push(
           <Grid item xs={2}>
-              <Button onClick={() => clickButton(key)} class="button-29">{data[key].emoji}</Button>
+              <IconButton onClick={() => clickButton(key)} class="button-29"><img src={"./icons/" + data[key].emoji}/></IconButton>
           </Grid>
         );
       }
@@ -67,7 +67,7 @@ function App() {
         <div className="rectangle-area">
           {counters}
         </div>
-
+        
         <div>
           <Grid container spacing={1}>
             {buttons}
