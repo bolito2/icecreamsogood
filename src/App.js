@@ -78,8 +78,9 @@ function App() {
     console.log(id)
     const actionCountRef = ref(database, 'actions/' + id + '/count');
     get(actionCountRef).then((snapshot) => {
-      const data = snapshot.val();
-      set(actionCountRef, data + 1);
+      return snapshot.val();
+    }).then((count) => {
+      set(actionCountRef, count + 1);
     });
   }
 }
