@@ -5,7 +5,7 @@ import { Button, Grid } from "@mui/material";
 
 // Firebase imports
 import { initializeApp } from "firebase/app";
-import { getDatabase, onValue, ref, set } from "firebase/database";
+import { get, getDatabase, onValue, ref, set } from "firebase/database";
 
 const firebaseConfig = {
   databaseURL: "https://ice-cream-so-good-default-rtdb.europe-west1.firebasedatabase.app/",
@@ -22,10 +22,29 @@ function App() {
   const [count , setCount] = useState(0);
   
   useEffect(() => {
-    const iceCreamCountRef = ref(database, 'ice_cream/count');
+    const iceCreamCountRef = ref(database, 'actions/ice_cream/count');
     onValue(iceCreamCountRef, (snapshot) => {
       const data = snapshot.val();
       setCount(data);
+    });
+  }, []);
+
+  const buttons = [];
+  useEffect(() => {
+    const actionsRef = ref(database, 'actions');
+    get(actionsRef).then((snapshot) => {
+      const data = snapshot.val();
+      console.log(data)
+      for (const key in data) {
+        console.log(key)
+        console.log(data[key])
+        buttons.push(
+          <Grid item xs={8}>
+              <Button onClick={clickButton} class="button-29">{data[key].emoji}</Button>
+          </Grid>
+        );
+      }
+      console.log(buttons)
     });
   }, []);
 
@@ -34,19 +53,14 @@ function App() {
       <body className="App-header">
         <div>
           <Grid container spacing={2}>
-            <Grid item xs={8}>
-              <Button onClick={clickButton} class="button-29">{count}</Button>
-            </Grid>
-            <Grid item xs={4}>
-              <Button onClick={clickButton} class="button-29">{count}</Button>
-            </Grid>
+            {buttons}
           </Grid>
         </div>
       </body>
     </div>
   );
   function clickButton() {
-    set(ref(database, 'ice_cream/count'), count + 1);
+    set(ref(database, 'actions/ice_cream/count'), count + 1);
   }
 }
 
