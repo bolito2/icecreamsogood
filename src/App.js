@@ -9,7 +9,8 @@ import ActionChip from "./ActionChip";
 
 // Firebase imports
 import { initializeApp } from "firebase/app";
-import { get, getDatabase, onValue, ref, set } from "firebase/database";
+import { get, getDatabase, onValue, push, ref, remove, set } from "firebase/database";
+import { deleteDoc } from "firebase/firestore";
 
 const firebaseConfig = {
   databaseURL: "https://ice-cream-so-good-default-rtdb.europe-west1.firebasedatabase.app/",
@@ -78,12 +79,13 @@ function App() {
   );
   function clickButton(id) {
     console.log(id)
-    const actionCountRef = ref(database, 'actions/' + id + '/count');
-    get(actionCountRef).then((snapshot) => {
-      return snapshot.val();
-    }).then((count) => {
-      set(actionCountRef, count + 1);
-    });
+    const actionCountRef = ref(database, 'actions/' + id + '/clicks');
+    const newClickRef = push(actionCountRef, {timestamp: Date.now()});
+
+    // pause for 2.5s
+    return setTimeout(() => {
+      remove(newClickRef);
+    }, 2500);
   }
 }
 
